@@ -1,9 +1,10 @@
 import { uploadVideo } from "../controllers/uploadController.js";
 import { verifyJWT } from "../middlewares/authMiddleware.js";
 import { Router } from "express";
+import upload from "../utils/multer.js"
 
 const router = Router();
 
-router.post("/video", verifyJWT, uploadVideo);
+router.post("/video", verifyJWT, upload.single("file"), uploadVideo);
 
 export default router;
