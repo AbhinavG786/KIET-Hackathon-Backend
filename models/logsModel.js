@@ -1,6 +1,6 @@
 import mongoose,{Schema} from "mongoose";
 const LogSchema = new Schema({
-  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  userId: { type: Schema.Types.ObjectId, ref: "User" },
   type: { type: String, enum: ["video", "audio", "text"], required: true },
   filePath: String,
   textContent: String, 

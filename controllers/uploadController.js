@@ -27,7 +27,7 @@ const uploadVideo = async (req, res) => {
     );
 
     const logDetails = await Log.create({
-      user: req.user.id,
+      userId: "68d80b659c5a95005dacb1e5", 
       type: "video",
       filePath: result.secure_url,
     });

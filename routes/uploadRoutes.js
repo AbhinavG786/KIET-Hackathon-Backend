@@ -5,6 +5,6 @@ import upload from "../utils/multer.js"
 
 const router = Router();
 
-router.post("/video", verifyJWT, upload.single("file"), uploadVideo);
+router.post("/video", upload.single("file"), uploadVideo);
 
 export default router;

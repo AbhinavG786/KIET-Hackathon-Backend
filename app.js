@@ -1,10 +1,11 @@
 import express from 'express';
 import connectDB from './database/connection.js';
 import dotenv from 'dotenv';
+dotenv.config();
 import cors from 'cors';
 import routes from './routes/index.js';
 
-dotenv.config();
+
 
 connectDB();
 
