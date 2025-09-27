@@ -1,5 +1,6 @@
 import { uploadBufferToCloudinary } from "../utils/cloudinary.js";
 import { Log } from "../models/logsModel.js";
+import { Alert } from "../models/alertModel.js";
 import axios from "axios";
 import FormData from "form-data";
 
@@ -19,21 +20,32 @@ const uploadVideo = async (req, res) => {
         },
       }
     );
-    const result = await uploadBufferToCloudinary(
-      req.file.buffer,
-      req.file.originalname,
-      "videos",
-      "video"
-    );
-
-    const logDetails = await Log.create({
-      userId: "68d80b659c5a95005dacb1e5", 
-      type: "video",
-      filePath: result.secure_url,
+    if (!response.data) {
+      return res
+        .status(500)
+        .json({ message: "No response from analysis service" });
+    }
+    const { type, message, severity } = response.data;
+    const alertDetails = await Alert.create({
+      userId: "68d80b659c5a95005dacb1e5",
+      type,
+      message,
+      severity,
     });
-    return res
-      .status(200)
-      .json({ message: "Video uploaded successfully", data: logDetails });
+    console.log("Alert created:", alertDetails);
+    // const result = await uploadBufferToCloudinary(
+    //   req.file.buffer,
+    //   req.file.originalname,
+    //   "videos",
+    //   "video"
+    // );
+
+    // const logDetails = await Log.create({
+    //   userId: "68d80b659c5a95005dacb1e5",
+    //   type: "video",
+    //   filePath: result.secure_url,
+    // });
+    return res.status(200).json({ message: "Video uploaded successfully" });
   } catch (error) {
     console.error("Error uploading video:", error);
     return res.status(500).json({ message: "Error uploading video", error });
