@@ -13,7 +13,9 @@ const upload = multer({
       "video/mp4",
       "video/quicktime",
       "video/x-msvideo",
-      "video/x-matroska"
+      "video/x-matroska",
+      "video/webm",
+      'video/webm;codecs=h264',
     ];
 
     if (allowedTypes.includes(file.mimetype)) {
